@@ -21,14 +21,6 @@ export class UsersResolver {
     return await db.getAllUsers()
   }
 
-  @Query(() => UserModel)
-  async user(
-    @Arg('id')
-    id: string
-  ) {
-    return await db.getUserById(id)
-  }
-
   @Mutation(() => UserModel)
   async createUser(
     @Arg('data')
@@ -45,13 +37,5 @@ export class UsersResolver {
     await db.createUser(user)
 
     return user
-  }
-
-  @FieldResolver(() => [TodoModel])
-  async todos(
-    @Root()
-    user: UserModel
-  ) {
-    return await db.getUserTodos(user.id)
   }
 }
