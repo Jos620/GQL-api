@@ -6,6 +6,9 @@ export class TodoModel {
   id: string
 
   @Field()
+  userId: string
+
+  @Field()
   text: string
 
   @Field()

@@ -1,12 +1,20 @@
-import { Arg, Mutation, Query, Resolver } from 'type-graphql'
+import {
+  Arg,
+  FieldResolver,
+  Mutation,
+  Query,
+  Resolver,
+  Root,
+} from 'type-graphql'
 import { CreateTodoInput } from '../dto/inputs/CreateTodoInput'
 import { TodoModel } from '../dto/models/TodoModel'
+import { UserModel } from '../dto/models/UserModel'
 import { Todo } from '../entities/Todo'
 import { InMemoryDatabase } from '../repositories/implementations/InMemoryDatabase'
 
 const db = InMemoryDatabase.getInstance()
 
-@Resolver()
+@Resolver(() => TodoModel)
 export class TodosResolver {
   @Query(() => [TodoModel])
   async todos() {
@@ -16,9 +24,10 @@ export class TodosResolver {
   @Mutation(() => TodoModel)
   async createTodo(
     @Arg('data')
-    { text, done }: CreateTodoInput
+    { text, done, userId }: CreateTodoInput
   ) {
     const todo = new Todo({
+      userId,
       text,
       done,
     })
@@ -26,5 +35,13 @@ export class TodosResolver {
     await db.createTodo(todo)
 
     return todo
+  }
+
+  @FieldResolver(() => UserModel)
+  async user(
+    @Root()
+    todo: TodoModel
+  ) {
+    return db.getUserById(todo.userId)
   }
 }
