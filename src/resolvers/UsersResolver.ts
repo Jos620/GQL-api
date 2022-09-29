@@ -18,6 +18,9 @@ export class UsersResolver {
     @Arg('data')
     { email, name }: CreateUserInput
   ) {
+    const emailAlreadyExists = await db.getUserByEmail(email)
+    if (emailAlreadyExists) throw new Error('Email already exists')
+
     const user = new User({
       email,
       name,
