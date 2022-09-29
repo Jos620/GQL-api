@@ -52,11 +52,6 @@ export class UsersResolver {
     @Root()
     user: UserModel
   ) {
-    console.log({ user: user.id })
-
-    const todos = await db.getUserTodos(user.id)
-    console.log({ todos })
-
-    return todos
+    return await db.getUserTodos(user.id)
   }
 }
