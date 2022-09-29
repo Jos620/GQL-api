@@ -5,8 +5,10 @@ import { TodoModel } from '../dto/models/TodoModel'
 import { UserModel } from '../dto/models/UserModel'
 import { User } from '../entities/User'
 import { InMemoryDatabase } from '../repositories/implementations/InMemoryDatabase'
+import { SupabaseDatabase } from '../repositories/implementations/Supabase'
 
-const db = InMemoryDatabase.getInstance()
+// const db = InMemoryDatabase.getInstance()
+const db = new SupabaseDatabase()
 
 @Resolver(() => UserModel)
 export class UserResolver {
