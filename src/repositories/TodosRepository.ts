@@ -4,4 +4,5 @@ export interface ITodosRepository {
   getAllTodos(): Promise<Todo[]>
   getTodoById(id: string): Promise<Todo | undefined>
   createTodo(todo: Todo): Promise<void>
+  getUserTodos(userId: string): Promise<Todo[]>
 }

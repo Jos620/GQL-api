@@ -36,6 +36,12 @@ export class InMemoryDatabase implements IUsersRepository, ITodosRepository {
     return this.todos
   }
 
+  async getUserTodos(userId: string): Promise<Todo[]> {
+    const todos = this.todos.filter((todo) => todo.userId === userId) || []
+
+    return todos
+  }
+
   async getTodoById(id: string): Promise<Todo | undefined> {
     return this.todos.find((todo) => todo.id === id)
   }
