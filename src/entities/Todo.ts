@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto'
 
 interface TodoProps {
   text: string
-  done: boolean
+  done?: boolean
 }
 
 export class Todo {
