@@ -1,12 +1,15 @@
 import { Arg, Mutation, Query, Resolver } from 'type-graphql'
 import { CreateUserInput } from '../dto/inputs/CreateUserInput'
 import { UserModel } from '../dto/models/UserModel'
+import { InMemoryDatabase } from '../repositories/implementations/InMemoryDatabase'
+
+const db = InMemoryDatabase.getInstance()
 
 @Resolver()
 export class UsersResolver {
   @Query(() => [UserModel])
   async users() {
-    return []
+    return await db.getAllUsers()
   }
 
   @Mutation(() => UserModel)
