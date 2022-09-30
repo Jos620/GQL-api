@@ -1,3 +1,4 @@
+import { UserInputError } from 'apollo-server'
 import {
   Arg,
   FieldResolver,
@@ -7,6 +8,7 @@ import {
   Root,
 } from 'type-graphql'
 import { CreateTodoInput } from '../dto/inputs/CreateTodoInput'
+import { ToggleTodoInput } from '../dto/inputs/ToggleTodoInput'
 import { TodoModel } from '../dto/models/TodoModel'
 import { UserModel } from '../dto/models/UserModel'
 import { Todo } from '../entities/Todo'
@@ -37,6 +39,19 @@ export class TodosResolver {
     await db.createTodo(todo)
 
     return todo
+  }
+
+  @Mutation(() => TodoModel)
+  async toggleTodo(
+    @Arg('data')
+    { done, id }: ToggleTodoInput
+  ) {
+    const todo = await db.getTodoById(id)
+    if (!todo) throw new UserInputError('Todo not found')
+
+    todo.done = done ?? !todo.done
+
+    return await db.toggleTodo(todo)
   }
 
   @FieldResolver(() => UserModel)

@@ -41,14 +41,14 @@ export class SupabaseDatabase implements IUsersRepository, ITodosRepository {
     return data || []
   }
 
-  async getTodoById(id: string): Promise<Todo | undefined> {
+  async getTodoById(id: string): Promise<Todo | null> {
     const { data } = await supabase
       .from<Todo>('todos')
       .select()
       .eq('id', id)
       .single()
 
-    return data || undefined
+    return data
   }
 
   async createTodo(todo: Todo): Promise<void> {
@@ -61,5 +61,15 @@ export class SupabaseDatabase implements IUsersRepository, ITodosRepository {
     })
 
     return data || []
+  }
+
+  async toggleTodo({ done, id }: Todo): Promise<Todo | null> {
+    const { data } = await supabase
+      .from<Todo>('todos')
+      .update({ done })
+      .eq('id', id)
+      .single()
+
+    return data
   }
 }

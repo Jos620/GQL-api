@@ -42,11 +42,19 @@ export class InMemoryDatabase implements IUsersRepository, ITodosRepository {
     return todos
   }
 
-  async getTodoById(id: string): Promise<Todo | undefined> {
-    return this.todos.find((todo) => todo.id === id)
+  async getTodoById(id: string): Promise<Todo | null> {
+    return this.todos.find((todo) => todo.id === id) || null
   }
 
   async createTodo(todo: Todo): Promise<void> {
     this.todos.push(todo)
+  }
+
+  async toggleTodo({ id, done }: Todo): Promise<Todo | null> {
+    const index = this.todos.findIndex(todo => todo.id === id)
+
+    this.todos[index].done = done
+
+    return this.todos[index] || null
   }
 }
