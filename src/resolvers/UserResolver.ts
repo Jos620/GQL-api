@@ -1,5 +1,12 @@
 import { UserInputError } from 'apollo-server'
-import { Arg, FieldResolver, Mutation, Query, Resolver, Root } from 'type-graphql'
+import {
+  Arg,
+  FieldResolver,
+  Mutation,
+  Query,
+  Resolver,
+  Root,
+} from 'type-graphql'
 import { CreateUserInput } from '../dto/inputs/CreateUserInput'
 import { TodoModel } from '../dto/models/TodoModel'
 import { UserModel } from '../dto/models/UserModel'
