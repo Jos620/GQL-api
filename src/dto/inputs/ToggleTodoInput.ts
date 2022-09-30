@@ -1,5 +1,4 @@
 import { Field, InputType } from 'type-graphql'
-import { TodoModel } from '../models/TodoModel'
 
 @InputType()
 export class ToggleTodoInput {
