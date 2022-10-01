@@ -1,7 +1,7 @@
 import { Field, ObjectType } from 'type-graphql'
 
 @ObjectType()
-export class TodoModel {
+export class Todo {
   @Field()
   id: string
 

@@ -8,8 +8,8 @@ import {
   Root,
 } from 'type-graphql'
 import { CreateUserInput } from '../dto/inputs/CreateUserInput'
-import { TodoModel } from '../dto/models/TodoModel'
-import { UserModel } from '../dto/models/UserModel'
+import { Todo as TodoModel } from '../dto/models/TodoModel'
+import { User as UserModel } from '../dto/models/UserModel'
 import { User } from '../entities/User'
 import { InMemoryDatabase } from '../repositories/implementations/InMemoryDatabase'
 import { SupabaseDatabase } from '../repositories/implementations/Supabase'

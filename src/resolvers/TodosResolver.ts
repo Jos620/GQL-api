@@ -9,8 +9,8 @@ import {
 } from 'type-graphql'
 import { CreateTodoInput } from '../dto/inputs/CreateTodoInput'
 import { ToggleTodoInput } from '../dto/inputs/ToggleTodoInput'
-import { TodoModel } from '../dto/models/TodoModel'
-import { UserModel } from '../dto/models/UserModel'
+import { Todo as TodoModel } from '../dto/models/TodoModel'
+import { User as UserModel } from '../dto/models/UserModel'
 import { Todo } from '../entities/Todo'
 import { InMemoryDatabase } from '../repositories/implementations/InMemoryDatabase'
 import { SupabaseDatabase } from '../repositories/implementations/Supabase'
@@ -57,7 +57,7 @@ export class TodosResolver {
   @FieldResolver(() => UserModel)
   async user(
     @Root()
-    todo: TodoModel
+    todo: Todo
   ) {
     return db.getUserById(todo.userId)
   }
